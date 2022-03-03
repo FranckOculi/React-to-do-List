@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import Api from '../api/Api';
 
-const Task = ({ task, Get }) => {
+const Task = ({ task, refreshPage }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState('');
 
-  function Edit() {
+  const handleEdit = async () => {
     const data = {
       content: editedContent ? editedContent : task.content,
       date: task.date,
     };
-    axios.put('http://localhost:3003/tasks/' + task.id, data).then(() => {
+    const id = task.id;
+    await Api.put(id, data).then(() => {
       setIsEditing(false);
     });
-    return data, setIsEditing;
-  }
+    return { data, setIsEditing };
+  };
 
-  function Delete() {
-    axios.delete('http://localhost:3003/tasks/' + task.id).then(() => {
-      Get();
-    });
-  }
+  const handleDelete = async () => {
+    const id = task.id;
+    await Api.delete(id).then(() => refreshPage());
+  };
 
   return (
     <div id='newTask'>
@@ -37,7 +37,7 @@ const Task = ({ task, Get }) => {
 
       <div className='taskBtn'>
         {isEditing ? (
-          <button onClick={Edit} id='edit'>
+          <button onClick={handleEdit} id='edit'>
             Valider
           </button>
         ) : (
@@ -45,7 +45,7 @@ const Task = ({ task, Get }) => {
             Edit
           </button>
         )}
-        <button onClick={Delete} id='delete'>
+        <button onClick={handleDelete} id='delete'>
           Delete
         </button>
       </div>
