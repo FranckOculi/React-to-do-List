@@ -18,6 +18,14 @@ This is my first project in React. The app can :
 - use a local API to render the app on your browser.
 - use a local API to stock data on a JSON file (http://localhost:3003).
 
+## How to use :
+---
+
+- You need to download all packages
+- npm command (back) : npm run server 3003
+- npm command (front) : npm run start
+- Enjoy!
+
 ## Technologies used :
 ---
 
