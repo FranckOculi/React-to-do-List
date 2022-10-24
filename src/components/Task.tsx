@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Api from '../api/Api'
-import { Todo, Data } from './TodoList'
+import { Todo, TodoPreview } from './TodoList'
 
 type TaskProps = {
 	taskProps: {
@@ -17,7 +17,7 @@ const Task = ({ taskProps }: TaskProps) => {
 	const handleEdit = async () => {
 		if (!editedMessage) return setIsEditing(false)
 
-		const data: Data = {
+		const data: TodoPreview = {
 			message: editedMessage,
 			date: parseInt(task.date.toString()),
 		}

@@ -4,16 +4,13 @@ import Api from '../api/Api'
 import { AxiosResponse } from 'axios'
 import Form from './Form'
 
-export type Data = {
-	message: string
-	date: number
-}
-
 export type Todo = {
 	message: string
-	date: Date
+	date: number
 	id: number
 }
+
+export type TodoPreview = Omit<Todo, 'id'>
 
 type List = {
 	list: Array<Todo>
@@ -30,7 +27,8 @@ const TodoList = () => {
 		if (!message) {
 			return setError(true)
 		}
-		const data: Data = {
+
+		const data: TodoPreview = {
 			message: message,
 			date: Date.now(),
 		}
@@ -70,9 +68,7 @@ const TodoList = () => {
 			<Form formProps={formProps} />
 			{todoList.length > 0 &&
 				todoList
-					.sort(
-						(a, b) => parseInt(b.date.toString()) - parseInt(a.date.toString())
-					)
+					.sort((a, b) => b.date - a.date)
 					.map((task) => {
 						const taskProps = {
 							filterList,
