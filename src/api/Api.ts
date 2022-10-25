@@ -2,20 +2,21 @@ import axios from 'axios'
 import { TodoPreview } from '../components/TodoList'
 
 class Api {
+	private apiUrl = 'http://localhost:3003/tasks'
 	async get() {
-		return axios.get('http://localhost:3003/tasks').then((res) => res.data)
+		return axios.get(this.apiUrl).then((res) => res.data)
 	}
 
 	add(data: TodoPreview) {
-		return axios.post('http://localhost:3003/tasks', data)
+		return axios.post(this.apiUrl, data)
 	}
 
 	delete(id: number) {
-		return axios.delete('http://localhost:3003/tasks/' + id)
+		return axios.delete(this.apiUrl + id)
 	}
 
 	put(id: number, data: TodoPreview) {
-		return axios.put('http://localhost:3003/tasks/' + id, data)
+		return axios.put(this.apiUrl + id, data)
 	}
 }
 
